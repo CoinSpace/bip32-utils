@@ -51,10 +51,11 @@ test('discoverChain', function (t) {
     t.plan(2)
 
     account.discoverChain(0, 20, function (addresses, callback) {
-      return callback(null, addresses.map(function (address) {
+      return callback(null, addresses.reduce(function (result, address) {
         // account.containsAddress would return true if internally the chain was iterating
-        return address !== before && account.containsAddress(address)
-      }))
+        result[address] = address !== before && account.containsAddress(address)
+        return result
+      }, {}))
     }, function (err) {
       t.ifErr(err, 'no error')
       t.equal(account.getChainAddress(0), before, 'internal chain was unchanged')
@@ -65,9 +66,10 @@ test('discoverChain', function (t) {
     t.plan(2)
 
     account.discoverChain(0, 20, function (addresses, callback) {
-      return callback(null, addresses.map(function (address) {
-        return account.containsAddress(address)
-      }))
+      return callback(null, addresses.reduce(function (result, address) {
+        result[address] = account.containsAddress(address)
+        return result
+      }, {}))
     }, function (err) {
       t.ifErr(err, 'no error')
       t.equal(account.getChainAddress(0), after, 'internal chain iterated forward one address')
