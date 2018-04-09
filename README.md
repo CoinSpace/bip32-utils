@@ -87,9 +87,10 @@ bip32utils.discovery(chain, GAP_LIMIT, function(addresses, callback) {
   blockchain.addresses.summary(addresses, function(err, results) {
     if (err) return callback(err)
 
-    var areUsed = results.map(function(result) {
-      return result.totalReceived > 0
-    })
+    var areUsed = results.reduce(function(obj, result) {
+      obj[result] = result.totalReceived > 0
+      return obj
+    }, {})
 
     callback(undefined, areUsed)
   })
