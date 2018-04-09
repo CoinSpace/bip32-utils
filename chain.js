@@ -1,19 +1,23 @@
 function DEFAULT_ADDRESS_FUNCTION (node) {
   return node.getAddress()
 }
+function DEFAULT_DERIVE_FUNCTION (parent, index) {
+  return parent.derive(index)
+}
 
-function Chain (parent, k, addressFunction) {
+function Chain (parent, k, addressFunction, deriveFunction) {
   k = k || 0
   this.__parent = parent
 
   this.addresses = []
   this.addressFunction = addressFunction || DEFAULT_ADDRESS_FUNCTION
+  this.deriveFunction = deriveFunction || DEFAULT_DERIVE_FUNCTION
   this.k = k
   this.map = {}
 }
 
 Chain.prototype.__initialize = function () {
-  var address = this.addressFunction(this.__parent.derive(this.k))
+  var address = this.addressFunction(this.deriveFunction(this.__parent, this.k))
   this.map[address] = this.k
   this.addresses.push(address)
 }
@@ -57,7 +61,7 @@ Chain.prototype.getParent = function () {
 
 Chain.prototype.next = function () {
   if (this.addresses.length === 0) this.__initialize()
-  var address = this.addressFunction(this.__parent.derive(this.k + 1))
+  var address = this.addressFunction(this.deriveFunction(this.__parent, this.k + 1))
 
   this.k += 1
   this.map[address] = this.k
