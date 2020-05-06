@@ -49,11 +49,11 @@ Account.prototype.derive = function (address, parents) {
   return derived
 }
 
-Account.prototype.discoverChain = function (i, gapLimit, queryCallback, callback) {
+Account.prototype.discoverChain = function (i, gapLimit, gapLimitMax, queryCallback, callback) {
   var chains = this.chains
   var chain = chains[i].clone()
 
-  discovery(chain, gapLimit, queryCallback, function (err, used, checked) {
+  discovery(chain, gapLimit, gapLimitMax, queryCallback, function (err, used, checked) {
     if (err) return callback(err)
 
     // throw away EACH unused address AFTER the last unused address

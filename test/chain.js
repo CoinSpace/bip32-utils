@@ -17,8 +17,8 @@ function ethAddr (node) {
 }
 
 var AF_MAPPING = {
-  'eth': ethAddr,
-  'segwit': segwitAddr
+  eth: ethAddr,
+  segwit: segwitAddr
 }
 
 fixtures.forEach(function (f) {

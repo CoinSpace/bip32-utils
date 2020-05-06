@@ -50,7 +50,7 @@ test('discoverChain', function (t) {
   t.test('does not mutate the chain during discovery', function (t) {
     t.plan(2)
 
-    account.discoverChain(0, 20, function (addresses, callback) {
+    account.discoverChain(0, 20, 20, function (addresses, callback) {
       return callback(null, addresses.reduce(function (result, address) {
         // account.containsAddress would return true if internally the chain was iterating
         result[address] = address !== before && account.containsAddress(address)
@@ -65,7 +65,7 @@ test('discoverChain', function (t) {
   t.test('does mutate the chain post-discovery', function (t) {
     t.plan(2)
 
-    account.discoverChain(0, 20, function (addresses, callback) {
+    account.discoverChain(0, 20, 20, function (addresses, callback) {
       return callback(null, addresses.reduce(function (result, address) {
         result[address] = account.containsAddress(address)
         return result

@@ -1,9 +1,10 @@
 // https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery
-module.exports = function discovery (chain, gapLimit, queryCb, done) {
+module.exports = function discovery (chain, gapLimit, gapLimitMax, queryCb, done) {
   var gap = 0
   var checked = 0
 
   function cycle () {
+    if (gapLimit > gapLimitMax) gapLimit = gapLimitMax
     var batch = [chain.get()]
     checked++
 
@@ -35,6 +36,7 @@ module.exports = function discovery (chain, gapLimit, queryCb, done) {
         chain.next()
       }
 
+      gapLimit += 1
       cycle()
     })
   }

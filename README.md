@@ -80,8 +80,9 @@ var blockchain = new Blockchain('testnet')
 var hdNode = bitcoin.HDNode.fromSeedHex(seedHex)
 var chain = bip32utils.Chain(hdNode)
 var GAP_LIMIT = 20
+var GAP_LIMIT_MAX = 20
 
-bip32utils.discovery(chain, GAP_LIMIT, function(addresses, callback) {
+bip32utils.discovery(chain, GAP_LIMIT, GAP_LIMIT_MAX, function(addresses, callback) {
   blockchain.addresses.summary(addresses, function(err, results) {
     if (err) return callback(err)
 

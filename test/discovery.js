@@ -13,7 +13,7 @@ test('bitcoinjs/HDNode', function (t) {
     var chain = new Chain(external, f.k)
 
     t.test('discovers until ' + f.expected.used + ' for ' + f.description + ' (GAP_LIMIT = ' + f.gapLimit + ')', function (t) {
-      discovery(chain, f.gapLimit, function (addresses, callback) {
+      discovery(chain, f.gapLimit, f.gapLimit, function (addresses, callback) {
         return callback(null, f.used)
       }, function (err, used, checked) {
         t.plan(4)
@@ -31,7 +31,7 @@ test('bitcoinjs/HDNode', function (t) {
     t.test('discover calls done on error', function (t) {
       var _err = new Error('e')
 
-      discovery(chain, f.gapLimit, function (addresses, callback) {
+      discovery(chain, f.gapLimit, f.gapLimit, function (addresses, callback) {
         return callback(_err)
       }, function (err) {
         t.plan(1)
@@ -56,7 +56,7 @@ test('cryptocoinjs/hdkey', function (t) {
     var chain = new Chain(external, f.k, addressFunction, deriveFunction)
 
     t.test('discovers until ' + f.expected.used + ' for ' + f.description + ' (GAP_LIMIT = ' + f.gapLimit + ')', function (t) {
-      discovery(chain, f.gapLimit, function (addresses, callback) {
+      discovery(chain, f.gapLimit, f.gapLimit, function (addresses, callback) {
         return callback(null, f.used)
       }, function (err, used, checked) {
         t.plan(4)
@@ -74,7 +74,7 @@ test('cryptocoinjs/hdkey', function (t) {
     t.test('discover calls done on error', function (t) {
       var _err = new Error('e')
 
-      discovery(chain, f.gapLimit, function (addresses, callback) {
+      discovery(chain, f.gapLimit, f.gapLimit, function (addresses, callback) {
         return callback(_err)
       }, function (err) {
         t.plan(1)
