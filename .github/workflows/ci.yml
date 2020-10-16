@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test-suite: unit
+        test-suite: [unit]
         node-version: [10, 12, 14]
         include:
           - node-version: 12
