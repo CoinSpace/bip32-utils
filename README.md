@@ -1,6 +1,5 @@
 # bip32-utils
 
-[![TRAVIS](https://secure.travis-ci.org/CoinSpace/bip32-utils.png)](http://travis-ci.org/CoinSpace/bip32-utils)
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 A set of utilities for working with BIP32.
